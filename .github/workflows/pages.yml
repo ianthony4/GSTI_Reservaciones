@@ -28,10 +28,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Preparar sitio con la URL de la API
         env:
-          API_URL: ${{ vars.API_URL }}
+          # Se acepta como Variable (recomendado) o como Secret con el mismo nombre.
+          API_URL: ${{ vars.API_URL || secrets.API_URL }}
         run: |
           if [ -z "$API_URL" ]; then
-            echo "::error::Falta la variable de repositorio API_URL (Settings > Secrets and variables > Actions > Variables)."
+            echo "::error::Falta API_URL. Créala en Settings > Secrets and variables > Actions > pestaña Variables > New repository variable (nombre API_URL, valor = URL de Render, p. ej. https://reservaya-api.onrender.com)."
             exit 1
           fi
           mkdir -p _site
