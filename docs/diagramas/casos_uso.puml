@@ -1,0 +1,28 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontName Calibri
+left to right direction
+title Diagrama de casos de uso - ReservaYa
+actor Cliente
+actor "Sistema de\nnotificaciones" as Notif
+rectangle "ReservaYa" {
+  usecase "CU-01 Consultar sucursales" as CU1
+  usecase "CU-02 Consultar disponibilidad" as CU2
+  usecase "CU-03 Reservar mesa" as CU3
+  usecase "CU-04 Consultar mis reservas" as CU4
+  usecase "CU-05 Modificar reserva" as CU5
+  usecase "CU-06 Cancelar reserva" as CU6
+  usecase "CU-07 Enviar notificación" as CU7
+}
+Cliente --> CU1
+Cliente --> CU2
+Cliente --> CU3
+Cliente --> CU4
+Cliente --> CU5
+Cliente --> CU6
+CU3 ..> CU7 : <<include>>
+CU5 ..> CU7 : <<include>>
+CU6 ..> CU7 : <<include>>
+CU3 ..> CU2 : <<include>>
+CU7 --> Notif
+@enduml

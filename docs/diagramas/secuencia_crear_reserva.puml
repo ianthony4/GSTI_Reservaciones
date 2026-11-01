@@ -1,0 +1,39 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontName Calibri
+autonumber
+title Diagrama de secuencia - Crear reserva y notificar
+actor Cliente
+participant "Frontend\n(app.js)" as FE
+participant "Router\n/api/reservations" as API
+participant "ReservationService" as RS
+participant "NotificationService" as NS
+database "SQLite" as DB
+participant "notifications.log" as LOG
+
+Cliente -> FE : Completa formulario y pulsa "Reservar"
+FE -> API : POST /api/reservations (JSON)
+API -> API : Validar esquema (Pydantic)
+alt datos inválidos
+  API --> FE : 422 Unprocessable Entity
+end
+API -> RS : create_reservation(data)
+RS -> DB : obtener Restaurant
+RS -> RS : validate_slot(fecha, hora)\n(horario, futuro, <= 60 días)
+RS -> DB : buscar/crear Customer por email
+RS -> DB : find_free_table(...)\n(mesas con capacidad >= personas,\nsin solapamiento)
+alt no hay mesa disponible
+  RS --> API : NoAvailabilityError
+  API --> FE : 409 Conflict
+  FE --> Cliente : "No hay mesas disponibles"
+else mesa disponible
+  RS -> DB : INSERT Reservation (CONFIRMED, código)
+  RS -> NS : notify(reserva, CONFIRMATION)
+  NS -> DB : INSERT Notification (SENT)
+  NS -> LOG : escribir mensaje
+  NS --> RS : Notification
+  RS --> API : Reservation
+  API --> FE : 201 Created (código, mesa, estado)
+  FE --> Cliente : Pantalla de confirmación
+end
+@enduml

@@ -1,0 +1,90 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontName Calibri
+skinparam classAttributeIconSize 0
+hide circle
+title Diagrama de clases - ReservaYa (v1.0)
+
+enum ReservationStatus <<enumeration>> {
+  CONFIRMED
+  CANCELLED
+}
+enum NotificationType <<enumeration>> {
+  CONFIRMATION
+  MODIFICATION
+  CANCELLATION
+}
+
+class Restaurant {
+  +id: int
+  +name: str
+  +address: str
+  +phone: str
+  +opening_time: time
+  +closing_time: time
+}
+class Table {
+  +id: int
+  +number: int
+  +capacity: int
+  +location: str
+}
+class Customer {
+  +id: int
+  +name: str
+  +email: str {unique}
+  +phone: str
+  +created_at: datetime
+}
+class Reservation {
+  +id: int
+  +code: str {unique}
+  +date: date
+  +start_time: time
+  +end_time: time
+  +party_size: int
+  +status: ReservationStatus
+  +notes: str
+  +created_at: datetime
+  +updated_at: datetime
+}
+class Notification {
+  +id: int
+  +type: NotificationType
+  +channel: str
+  +recipient: str
+  +subject: str
+  +message: str
+  +status: str
+  +sent_at: datetime
+}
+class ReservationService <<service>> {
+  +check_availability(restaurant, date, time, party_size): Table
+  +create_reservation(data): Reservation
+  +get_reservation(code, email): Reservation
+  +list_by_customer(email): List<Reservation>
+  +update_reservation(code, email, data): Reservation
+  +cancel_reservation(code, email): Reservation
+  -validate_slot(restaurant, date, time)
+  -find_free_table(restaurant, date, start, end, party_size, exclude_id): Table
+}
+class NotificationService <<service>> {
+  +notify(reservation, type): Notification
+  -build_message(reservation, type): str
+  -write_log(notification)
+}
+
+Restaurant "1" *-- "1..*" Table : tiene >
+Restaurant "1" -- "0..*" Reservation : recibe >
+Table "1" -- "0..*" Reservation : asignada a >
+Customer "1" -- "0..*" Reservation : realiza >
+Reservation "1" -- "0..*" Notification : genera >
+Customer "1" -- "0..*" Notification : recibe >
+Reservation ..> ReservationStatus
+Notification ..> NotificationType
+ReservationService ..> Reservation
+ReservationService ..> Table
+ReservationService ..> Customer
+ReservationService --> NotificationService : usa
+NotificationService ..> Notification
+@enduml

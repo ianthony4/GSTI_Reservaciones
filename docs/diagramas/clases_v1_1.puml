@@ -1,0 +1,110 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontName Calibri
+skinparam classAttributeIconSize 0
+hide circle
+title Diagrama de clases - ReservaYa v1.1 (programa de recompensas)
+
+skinparam class {
+  BackgroundColor<<nuevo>> #FFF4D6
+  BorderColor<<nuevo>> #B8860B
+}
+
+enum ReservationStatus <<enumeration>> {
+  CONFIRMED
+  CANCELLED
+  {field} COMPLETED  (v1.1)
+}
+enum NotificationType <<enumeration>> {
+  CONFIRMATION
+  MODIFICATION
+  CANCELLATION
+  {field} REWARD  (v1.1)
+  {field} REDEMPTION  (v1.1)
+}
+enum RewardType <<enumeration>> #FFF4D6 {
+  EARN
+  REDEEM
+}
+class Restaurant {
+  +id: int
+  +name: str
+  +opening_time: time
+  +closing_time: time
+}
+class Table {
+  +id: int
+  +number: int
+  +capacity: int
+}
+class Customer {
+  +id: int
+  +name: str
+  +email: str {unique}
+  +phone: str
+  {field} +points: int  (v1.1)
+  {field} +lifetime_points: int  (v1.1)
+}
+class Reservation {
+  +id: int
+  +code: str {unique}
+  +date: date
+  +start_time: time
+  +end_time: time
+  +party_size: int
+  +status: ReservationStatus
+}
+class Notification {
+  +id: int
+  {field} +reservation_id: int [0..1]  (v1.1)
+  +type: NotificationType
+  +recipient: str
+  +subject: str
+  +message: str
+  +sent_at: datetime
+}
+class RewardTransaction <<nuevo>> {
+  +id: int
+  +type: RewardType
+  +points: int
+  +description: str
+  +coupon_code: str [0..1]
+  +created_at: datetime
+}
+class ReservationService <<service>> {
+  +create_reservation(data): Reservation
+  +update_reservation(code, data): Reservation
+  +cancel_reservation(code, email): Reservation
+  ...
+}
+class NotificationService <<service>> {
+  +notify(reservation, type): Notification
+  +send(customer, type, subject, message, reservation): Notification  (v1.1)
+}
+class RewardService <<nuevo>> {
+  +POINTS_PER_VISIT = 10
+  +REDEEM_COST = 50
+  +LEVELS = BRONCE 0, PLATA 50, ORO 100
+  +complete_reservation(code): Reservation
+  +summary(email): dict
+  +redeem(email): RewardTransaction
+  +level_for(lifetime_points): str
+}
+
+Restaurant "1" *-- "1..*" Table
+Restaurant "1" -- "0..*" Reservation
+Table "1" -- "0..*" Reservation
+Customer "1" -- "0..*" Reservation : realiza >
+Reservation "0..1" -- "0..*" Notification : genera >
+Customer "1" -- "0..*" Notification : recibe >
+Customer "1" -- "0..*" RewardTransaction : acumula >
+Reservation "0..1" -- "0..1" RewardTransaction : origina >
+Reservation ..> ReservationStatus
+Notification ..> NotificationType
+RewardTransaction ..> RewardType
+ReservationService --> NotificationService
+RewardService --> NotificationService
+RewardService ..> RewardTransaction
+RewardService ..> Customer
+RewardService ..> Reservation
+@enduml

@@ -1,0 +1,31 @@
+# Demo v1.1: el personal marca 5 reservas pasadas como completadas (X-Staff-Key) - 2026-10-31 23:27
+# Nota: las 5 reservas HIST000x (20-24/10/2026) se insertaron directamente en la BD de demo como historial, porque la API solo admite crear reservas futuras.
+{"detail":"Clave de personal inválida"}  -> HTTP 401
+{"code":"HIST0001","status":"COMPLETED","points_earned":10,"customer_points":10,"customer_level":"BRONCE"}  -> HTTP 200
+{"code":"HIST0002","status":"COMPLETED","points_earned":10,"customer_points":20,"customer_level":"BRONCE"}  -> HTTP 200
+{"code":"HIST0003","status":"COMPLETED","points_earned":10,"customer_points":30,"customer_level":"BRONCE"}  -> HTTP 200
+{"code":"HIST0004","status":"COMPLETED","points_earned":10,"customer_points":40,"customer_level":"BRONCE"}  -> HTTP 200
+{"code":"HIST0005","status":"COMPLETED","points_earned":10,"customer_points":50,"customer_level":"PLATA"}  -> HTTP 200
+# Intento de completar dos veces:
+{"detail":"Solo una reserva confirmada puede marcarse como completada"}  -> HTTP 409
+# Resumen de recompensas:
+{
+    "customer_name": "Ana Torres",
+    "email": "ana.torres@example.com",
+    "points": 50,
+    "lifetime_points": 50,
+    "level": "PLATA",
+    "next_level": "ORO",
+    "points_to_next_level": 50,
+    "redeem_cost": 50,
+    "can_redeem": true,
+    "transactions": [
+        {
+            "type": "EARN",
+            "points": 10,
+            "description": "Reserva HIST0005 completada",
+            "coupon_code": null,
+            "created_at": "2026-10-31T23:27:40.258491"
+        },
+        {
+            "type": "EARN",

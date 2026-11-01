@@ -1,0 +1,11 @@
+# Medición de tiempos de respuesta (RNF-02) - servidor local uvicorn, 2026-10-31 23:23
+GET /api/restaurants  HTTP 200  0.005949s
+GET /api/restaurants  HTTP 200  0.006845s
+GET /api/restaurants  HTTP 200  0.003207s
+GET /api/restaurants/2/availability?date=2026-11-01&time=19:00&party_size=4  HTTP 200  0.002877s
+GET /api/restaurants/2/availability?date=2026-11-01&time=19:00&party_size=4  HTTP 200  0.005226s
+GET /api/restaurants/2/availability?date=2026-11-01&time=19:00&party_size=4  HTTP 200  0.005457s
+GET /api/customers/ana.torres@example.com/reservations  HTTP 200  0.004009s
+GET /api/customers/ana.torres@example.com/reservations  HTTP 200  0.005624s
+GET /api/customers/ana.torres@example.com/reservations  HTTP 200  0.007496s
+POST /api/reservations  HTTP 201  0.006908s

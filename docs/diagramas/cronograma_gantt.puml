@@ -1,0 +1,37 @@
+@startgantt
+title Cronograma del proyecto ReservaYa (Lab 04)
+skinparam dpi 150
+skinparam defaultFontName Calibri
+language es
+Project starts 2026-10-05
+saturday are closed
+sunday are closed
+-- Parte 1: Planificación --
+[A1 Estudio SWEBOK] requires 1 days
+[A2 Alcance y modelo] requires 1 days
+[A2 Alcance y modelo] starts at [A1 Estudio SWEBOK]'s end
+[A3 Estimación y riesgos] requires 1 days
+[A3 Estimación y riesgos] starts at [A2 Alcance y modelo]'s end
+-- Parte 2: Requisitos y diseño --
+[A4 Reunión con cliente] starts 2026-10-12 and requires 1 days
+[A5 ERS] requires 2 days
+[A5 ERS] starts at [A4 Reunión con cliente]'s end
+[A6-A7 Arquitectura y UML] requires 2 days
+[A6-A7 Arquitectura y UML] starts at [A5 ERS]'s end
+-- Parte 3: Construcción y pruebas --
+[A8 Mockups] starts 2026-10-19 and requires 1 days
+[A9 Backend] requires 2 days
+[A9 Backend] starts at [A8 Mockups]'s end
+[A10 Frontend] requires 1 days
+[A10 Frontend] starts at [A9 Backend]'s end
+[A11 Pruebas] requires 1 days
+[A11 Pruebas] starts at [A10 Frontend]'s end
+-- Parte 4: Mantenimiento y revisión --
+[A12 Análisis del cambio] starts 2026-10-26 and requires 1 days
+[A13 Implementación] requires 2 days
+[A13 Implementación] starts at [A12 Análisis del cambio]'s end
+[A14 Regresión] requires 1 days
+[A14 Regresión] starts at [A13 Implementación]'s end
+[A15 Presentación e informe] requires 1 days
+[A15 Presentación e informe] starts at [A14 Regresión]'s end
+@endgantt

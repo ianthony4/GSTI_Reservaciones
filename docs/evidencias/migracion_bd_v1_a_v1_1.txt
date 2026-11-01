@@ -1,0 +1,15 @@
+# Evidencia de migración de la BD de la demo v1.0 (Fase 3) a v1.1 (Fase 4) - 2026-10-31 23:27
+ANTES  customers cols: ['id', 'name', 'email', 'phone', 'created_at']
+ANTES  filas: reservas=3 notificaciones=5 clientes=2
+--- Log de arranque del servidor v1.1 ---
+INFO:     Waiting for application startup.
+[migración] customers.points agregado
+[migración] customers.lifetime_points agregado
+[migración] notifications.reservation_id ahora admite NULL (tabla reconstruida, datos copiados)
+[migración] tabla reward_transactions creada
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8765 (Press CTRL+C to quit)
+DESPUÉS customers cols: ['id', 'name', 'email', 'phone', 'created_at', 'points', 'lifetime_points']
+DESPUÉS notifications.reservation_id notnull = 0
+DESPUÉS tablas: ['customers', 'notifications', 'reservations', 'restaurants', 'reward_transactions', 'tables']
+DESPUÉS filas: reservas=3 notificaciones=5 clientes=2

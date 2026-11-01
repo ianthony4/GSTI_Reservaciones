@@ -1,0 +1,36 @@
+# Crea un Release al subir una etiqueta vX.Y.Z: ejecuta las pruebas y adjunta el informe,
+# el código fuente y la salida de pytest.  Uso: git tag v1.1.0 && git push origin v1.1.0
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pruebas
+        working-directory: backend
+        run: |
+          pip install -r requirements.txt
+          python -m pytest -v | tee ../pytest_${GITHUB_REF_NAME}.txt
+      - name: Empaquetar código fuente
+        run: git archive --format=zip --prefix=reservaya-${GITHUB_REF_NAME}/ -o reservaya-${GITHUB_REF_NAME}.zip HEAD
+      - name: Crear Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --title "ReservaYa $GITHUB_REF_NAME" \
+            --generate-notes \
+            Informe_Lab04.docx \
+            "reservaya-${GITHUB_REF_NAME}.zip" \
+            "pytest_${GITHUB_REF_NAME}.txt"

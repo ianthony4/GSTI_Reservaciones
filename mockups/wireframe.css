@@ -1,0 +1,24 @@
+/* Estilo wireframe (baja fidelidad): solo grises, cajas y anotaciones */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Comic Sans MS", "Comic Neue", cursive; background: #fff; color: #333; padding: 24px; }
+.frame { width: 820px; border: 3px solid #333; border-radius: 6px; margin: 0 auto; }
+.bar { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 2px solid #333; background: #eee; }
+.content { padding: 18px; }
+.box { border: 2px dashed #777; border-radius: 6px; padding: 10px; margin-bottom: 10px; }
+.row { display: flex; gap: 10px; }
+.row > * { flex: 1; }
+.field { border: 2px solid #555; height: 34px; border-radius: 4px; margin-top: 4px; background: #fafafa; position: relative; }
+.field.sel::after { content: "▼"; position: absolute; right: 8px; top: 6px; }
+.field.tall { height: 54px; }
+.lbl { font-size: 13px; margin-top: 8px; }
+.btn { display: inline-block; border: 2px solid #333; padding: 8px 16px; border-radius: 4px; background: #ddd; font-weight: bold; }
+.btn.main { background: #555; color: #fff; }
+.right { text-align: right; }
+.note { background: #fff7b3; border: 1px solid #c9b800; padding: 6px 10px; font-size: 12px; margin-top: 10px; border-radius: 4px; }
+h1 { font-size: 22px; margin: 0 0 6px; } h2 { font-size: 16px; margin: 10px 0 0; }
+.tab { padding: 2px 10px; border: 2px solid #333; border-radius: 4px; margin-left: 6px; }
+.tab.on { background: #555; color: #fff; }
+.center { text-align: center; }
+.circle { width: 50px; height: 50px; border: 3px solid #333; border-radius: 50%; margin: 0 auto; line-height: 44px; font-size: 26px; }
+.code { font-size: 26px; letter-spacing: 6px; border: 2px dashed #333; display: inline-block; padding: 4px 16px; margin: 6px; }
+.title { text-align: center; font-size: 14px; color: #666; margin-bottom: 8px; }

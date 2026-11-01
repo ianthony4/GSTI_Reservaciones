@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ReservaYa · Sabores del Sur</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Reserva<span>Ya</span></div>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-view="view-reserve" role="tab">Reservar</button>
+      <button class="tab" data-view="view-mine" role="tab">Mis reservas</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Vista: reservar -->
+    <section id="view-reserve" class="view active">
+      <h1>Reserva tu mesa</h1>
+      <p class="muted">Cadena de restaurantes Sabores del Sur · Atención de 12:00 a 23:00 · Cada reserva dura 2 horas.</p>
+
+      <div id="branches" class="branches"></div>
+
+      <form id="reserve-form" class="card form-grid" novalidate>
+        <h2>Datos de la reserva</h2>
+        <label>Sucursal<select name="restaurant_id" id="restaurant" required></select></label>
+        <label>Fecha<input type="date" name="date" id="date" required></label>
+        <label>Hora<select name="time" id="time" required></select></label>
+        <label>Personas<input type="number" name="party_size" id="party" min="1" max="8" value="2" required></label>
+        <h2>Tus datos</h2>
+        <label>Nombre completo<input name="name" required minlength="2" placeholder="Ana Torres"></label>
+        <label>Correo electrónico<input type="email" name="email" required placeholder="ana@correo.com"></label>
+        <label>Teléfono<input name="phone" required placeholder="987654321"></label>
+        <label class="full">Comentarios (opcional)<textarea name="notes" rows="2" placeholder="Alergias, cumpleaños, silla para bebé..."></textarea></label>
+        <div class="full actions">
+          <button type="button" id="check-btn" class="btn secondary">Verificar disponibilidad</button>
+          <button type="submit" class="btn primary">Reservar</button>
+        </div>
+        <div id="reserve-msg" class="full msg" role="status"></div>
+      </form>
+
+      <!-- Confirmación -->
+      <div id="confirmation" class="card confirmation hidden">
+        <div class="check">✓</div>
+        <h2>¡Reserva confirmada!</h2>
+        <p>Tu código de reserva es</p>
+        <div id="conf-code" class="code"></div>
+        <dl id="conf-details" class="details"></dl>
+        <div class="notice">
+          <strong>Notificación enviada</strong>
+          <pre id="conf-notification"></pre>
+        </div>
+        <button class="btn primary" id="new-reservation">Hacer otra reserva</button>
+      </div>
+    </section>
+
+    <!-- Vista: mis reservas -->
+    <section id="view-mine" class="view">
+      <h1>Mis reservas</h1>
+      <form id="lookup-form" class="card lookup">
+        <label>Correo con el que reservaste<input type="email" name="email" id="lookup-email" required placeholder="ana@correo.com"></label>
+        <button class="btn primary" type="submit">Buscar</button>
+      </form>
+      <div id="mine-msg" class="msg" role="status"></div>
+      <!-- v1.1: programa de recompensas -->
+      <div id="rewards" class="card rewards hidden">
+        <div class="rw-head">
+          <div><span class="muted">Programa Clientes Frecuentes</span><h2 id="rw-level"></h2></div>
+          <div class="rw-points"><span id="rw-points"></span><small>puntos</small></div>
+        </div>
+        <div class="progress"><div id="rw-bar"></div></div>
+        <p id="rw-next" class="muted"></p>
+        <div class="actions"><button id="rw-redeem" class="btn primary">Canjear 50 puntos por cupón 10 %</button></div>
+        <ul id="rw-history" class="rw-history"></ul>
+      </div>
+      <div id="my-reservations" class="list"></div>
+    </section>
+  </main>
+
+  <template id="reservation-tpl">
+    <article class="card reservation">
+      <div class="res-head">
+        <div><span class="res-code"></span> <span class="badge"></span></div>
+        <div class="res-branch muted"></div>
+      </div>
+      <div class="res-info"></div>
+      <div class="res-actions">
+        <button class="btn secondary act-edit">Modificar</button>
+        <button class="btn danger act-cancel">Cancelar</button>
+        <button class="btn link act-notifs">Ver notificaciones</button>
+      </div>
+      <form class="edit-form form-grid hidden">
+        <label>Sucursal<select name="restaurant_id"></select></label>
+        <label>Fecha<input type="date" name="date" required></label>
+        <label>Hora<select name="time"></select></label>
+        <label>Personas<input type="number" name="party_size" min="1" max="8" required></label>
+        <label class="full">Comentarios<textarea name="notes" rows="2"></textarea></label>
+        <div class="full actions">
+          <button type="button" class="btn secondary act-close">Cerrar</button>
+          <button type="submit" class="btn primary">Guardar cambios</button>
+        </div>
+      </form>
+      <ul class="notifs hidden"></ul>
+    </article>
+  </template>
+
+  <footer class="foot muted">ReservaYa · Laboratorio 04 GSTI – UNSA · <a href="/docs" data-api-docs>API (OpenAPI)</a></footer>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

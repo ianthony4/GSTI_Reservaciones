@@ -1,0 +1,41 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontName Calibri
+title Arquitectura en capas - ReservaYa
+actor Cliente
+node "Navegador web" {
+  component "Frontend\n(HTML / CSS / JS)" as FE
+}
+node "Servidor (Uvicorn)" {
+  package "Capa API (FastAPI)" {
+    component "routers/restaurants" as R1
+    component "routers/reservations" as R2
+    component "routers/customers" as R3
+    component "schemas (Pydantic)" as SC
+  }
+  package "Capa de servicios" {
+    component "ReservationService" as RS
+    component "NotificationService" as NS
+  }
+  package "Capa de datos" {
+    component "models (SQLAlchemy)" as M
+    database "SQLite\nreservaya.db" as DB
+  }
+  file "notifications.log" as LOG
+}
+Cliente --> FE
+FE --> R1 : HTTP/JSON
+FE --> R2 : HTTP/JSON
+FE --> R3 : HTTP/JSON
+R1 ..> SC
+R2 ..> SC
+R3 ..> SC
+R1 --> RS
+R2 --> RS
+R3 --> RS
+RS --> NS
+RS --> M
+NS --> M
+NS --> LOG
+M --> DB
+@enduml

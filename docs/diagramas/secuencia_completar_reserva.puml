@@ -1,0 +1,32 @@
+@startuml
+skinparam dpi 150
+skinparam defaultFontName Calibri
+autonumber
+title Diagrama de secuencia v1.1 - Completar reserva y otorgar puntos
+actor "Personal del\nrestaurante" as Staff
+participant "Router\n/api/reservations/{code}/complete" as API
+participant "RewardService" as RW
+participant "NotificationService" as NS
+database "SQLite" as DB
+
+Staff -> API : POST (cabecera X-Staff-Key)
+alt clave inválida
+  API --> Staff : 401 Unauthorized
+end
+API -> RW : complete_reservation(code)
+RW -> DB : buscar Reservation por código
+alt estado != CONFIRMED o aún no inicia
+  RW --> API : InvalidStateError
+  API --> Staff : 409 Conflict
+else válida
+  RW -> RW : nivel_anterior = level_for(lifetime_points)
+  RW -> DB : UPDATE Reservation.status = COMPLETED
+  RW -> DB : UPDATE Customer.points += 10,\nlifetime_points += 10
+  RW -> DB : INSERT RewardTransaction (EARN, +10)
+  RW -> RW : nivel_nuevo = level_for(...)
+  RW -> NS : send(cliente, REWARD, mensaje\n[+ "subiste de nivel" si cambió])
+  NS -> DB : INSERT Notification
+  RW --> API : reserva, transacción
+  API --> Staff : 200 OK (puntos, nivel)
+end
+@enduml

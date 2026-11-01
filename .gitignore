@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Datos locales generados al ejecutar
+*.db
+*.sqlite3
+notifications.log
+
+# Office (archivos temporales)
+~$*.docx
+~$*.xlsx
+
+# Sistema / IDE
+.DS_Store
+.vscode/
+.idea/

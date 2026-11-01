@@ -1,0 +1,21 @@
+# Blueprint de Render: despliega la API (y el frontend) de ReservaYa.
+# En Render: New > Blueprint > elegir este repositorio.
+services:
+  - type: web
+    name: reservaya-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      # Orígenes permitidos (CORS). Cámbialo por tu GitHub Pages, p. ej. https://usuario.github.io
+      - key: CORS_ORIGINS
+        value: "*"
+      # Clave de personal para marcar reservas como completadas (Render genera un valor aleatorio).
+      - key: RESERVAYA_STAFF_KEY
+        generateValue: true

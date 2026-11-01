@@ -82,19 +82,8 @@ lab04/
 
 Para regenerar los diagramas: `java -jar plantuml.jar -tpng docs/diagramas/*.puml`.
 
-## Informe
 
-`Informe_Lab04.docx` se genera desde la plantilla EPIS con los resultados de `docs/`:
-
-```bash
-pip install python-docx pillow
-python docs/generar_informe.py        # genera el DOCX
-python docs/verificar_formato.py      # verifica que todo esté en Calibri 12
-```
-
-Al abrir el informe en Word, acepta actualizar los campos para refrescar los números de página del índice.
-
-## Demo en línea (GitHub Pages + Render)
+## Demo en línea
 
 GitHub Pages solo sirve archivos estáticos, así que el sistema se publica en dos partes:
 
@@ -115,5 +104,3 @@ GitHub Pages solo sirve archivos estáticos, así que el sistema se publica en d
 git tag v1.1.0
 git push origin v1.1.0
 ```
-
-Limitaciones del plan gratuito de Render: el servicio se suspende tras ~15 minutos sin uso (la primera visita tarda 30–60 s en despertar) y el disco no es persistente, por lo que la base de datos de la demo se reinicia con las 3 sucursales de ejemplo. La clave de personal la genera Render (ver *Environment* del servicio).
