@@ -92,15 +92,4 @@ GitHub Pages solo sirve archivos estáticos, así que el sistema se publica en d
 | Frontend | GitHub Pages | `.github/workflows/pages.yml` |
 | API (FastAPI + SQLite) | Render (plan gratuito) | `render.yaml` |
 | Pruebas en cada push | GitHub Actions | `.github/workflows/ci.yml` |
-| Releases con el informe adjunto | GitHub Actions | `.github/workflows/release.yml` |
-
-1. **API en Render:** en [render.com](https://render.com), *New → Blueprint* y elegir este repositorio. Al terminar, copia la URL (p. ej. `https://reservaya-api.onrender.com`) y comprueba que `/api/health` responde `{"status":"ok"}`.
-2. **Variable con la URL de la API:** en GitHub, *Settings → Secrets and variables → Actions → Variables → New repository variable*, con nombre `API_URL` y la URL de Render como valor.
-3. **Pages:** en *Settings → Pages → Source*, elegir **GitHub Actions**. Luego ejecutar el workflow *Deploy GitHub Pages* (pestaña *Actions → Run workflow*) o hacer push a `main`. La demo queda en `https://<usuario>.github.io/<repositorio>/` y cada publicación aparece en **Deployments**.
-4. **(Opcional) Restringir CORS:** en Render, cambiar `CORS_ORIGINS` de `*` a `https://<usuario>.github.io`.
-5. **Release:** al subir una etiqueta, el workflow ejecuta las pruebas y crea el Release con `Informe_Lab04.docx`, el código en ZIP y la salida de pytest:
-
-```bash
-git tag v1.1.0
-git push origin v1.1.0
-```
+| Releases con el informe adjunto | GitHub Actions | `.github/workflows/release.yml` 
