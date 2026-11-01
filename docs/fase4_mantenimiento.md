@@ -160,20 +160,3 @@ SWEBOK (área *Software Maintenance*, basada en ISO/IEC 14764) distingue cuatro 
 | Preventivo | Previene problemas futuros (refactorización, documentación) antes de que ocurran. | Complementario: `NotificationService.send()` generaliza el envío y la migración idempotente previene fallos al actualizar. |
 
 **Conclusión:** el sistema de recompensas es **mantenimiento perfectivo**, porque responde a una nueva necesidad del cliente y agrega funcionalidad a un sistema que ya funcionaba correctamente. Según SWEBOK, este tipo de cambio es una **mejora** (*enhancement*), no una corrección.
-
-## 4.2 Revisión y presentación del proyecto
-
-El guion de la presentación final está en `docs/presentacion_final.md` (planificación, requisitos y diseño, interfaces, resultados de pruebas y mantenimiento).
-
----
-
-## Resumen para el informe
-
-- Se simuló la solicitud de cambio **SC-01**: programa de recompensas para clientes frecuentes. Se acordaron las reglas: 10 puntos por reserva completada; niveles Bronce/Plata/Oro (0/50/100); canje de 50 puntos por un cupón de 10 %.
-- ERS actualizada a **v1.1** con historial de versiones: nuevos **RF-10 a RF-14**, **RNF-08** (clave de personal), **RS-07** (migración sin pérdida), RF-09 ampliado y criterios **CA-10 a CA-15**.
-- Diseño actualizado: **diagrama de clases v1.1** (`RewardService`, `RewardTransaction`, `RewardType`, estado COMPLETED) y **diagrama de secuencia** "completar reserva y otorgar puntos".
-- Implementación: nuevo servicio, router con 3 endpoints, **migración automática e idempotente** de la BD v1.0 y panel de recompensas en el frontend.
-- La migración se probó sobre la BD real de la demo de la Fase 3: se conservaron 3 reservas, 5 notificaciones y 2 clientes.
-- **Regresión: 41/41 pruebas aprobadas**: las 29 de la Fase 3 sin cambios + 12 nuevas (TP-28 a TP-39); salida en `pytest_fase4.txt`.
-- Demo por API y por interfaz: subida de Bronce a Plata con notificación, rechazo sin clave (401) o por doble registro (409), canje del cupón `DESC10-8WJGPM`.
-- Clasificación SWEBOK: **mantenimiento perfectivo** (nueva funcionalidad pedida por el cliente), con aspectos preventivos y adaptativos secundarios.

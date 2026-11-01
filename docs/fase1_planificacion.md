@@ -138,13 +138,3 @@ Exportado como imagen en `docs/diagramas/cronograma_gantt.png` (fuente `cronogra
 
 ---
 
-## Resumen para el informe
-
-- Se estudió SWEBOK v3.0 y se mapearon sus 7 áreas usadas en el laboratorio a las actividades del proyecto (tabla de áreas vs. aplicación).
-- Proyecto definido: **ReservaYa**, sistema de reservas para una cadena de restaurantes (reservar, modificar, cancelar y notificar).
-- Stack elegido: Python + FastAPI, SQLite con SQLAlchemy, frontend HTML/CSS/JS, pruebas con pytest; notificaciones simuladas en BD y log.
-- Modelo de proceso: **iterativo-incremental** con 4 iteraciones (I-1 a I-4), justificado por el cambio de requisitos previsto en la Parte 4.
-- Plan con 7 fases del ciclo de vida y sus entregables por fase.
-- Estimación de 15 actividades (A1–A15) con un total de **21 horas**, partiendo de las 3 h por parte de la guía más trabajo autónomo.
-- Cronograma en diagrama de Gantt (`docs/diagramas/cronograma_gantt.png`).
-- 6 riesgos identificados (R1–R6) con probabilidad, impacto y mitigación; el principal es el cambio de requisitos (R1).

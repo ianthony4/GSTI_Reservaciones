@@ -176,14 +176,3 @@ Flujo: el cliente envía el formulario → el frontend hace `POST /api/reservati
 | GET | `/api/reservations/{code}/notifications?email=` | Historial de notificaciones | RF-09 |
 
 ---
-
-## Resumen para el informe
-
-- Se simuló la reunión con el cliente (gerente de "Sabores del Sur"): acta con 11 preguntas/respuestas y 3 acuerdos; marcada explícitamente como **simulada**.
-- ERS en estilo IEEE 830 / ISO/IEC/IEEE 29148: **9 requisitos funcionales (RF-01 a RF-09)**, **7 no funcionales (RNF-01 a RNF-07)** y **6 restricciones (RS-01 a RS-06)**.
-- Reglas de negocio clave: horario 12:00–23:00, duración fija de 2 h, anticipación máxima de 60 días, asignación automática de la mesa más pequeña disponible, sin solapamientos.
-- 7 casos de uso (CU-01 a CU-07) con diagrama UML de casos de uso y 9 criterios de aceptación (CA-01 a CA-09) en formato Dado/Cuando/Entonces.
-- Arquitectura cliente-servidor en 4 capas: presentación (HTML/CSS/JS), API (FastAPI), servicios (reglas de negocio) y datos (SQLAlchemy + SQLite).
-- Modelo de datos con 5 entidades: Restaurant, Table, Customer, Reservation, Notification.
-- Diagramas UML entregados en PlantUML (`.puml`) y PNG: casos de uso, componentes/arquitectura, clases y secuencia "crear reserva y notificar".
-- Diseño de la API REST con 8 endpoints trazados a los RF.

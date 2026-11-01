@@ -134,14 +134,3 @@ Salida real guardada en `docs/evidencias/pytest_fase3.txt`:
 - Todos los criterios de aceptación CA-01 a CA-09 quedan cubiertos por al menos un caso de prueba.
 
 ---
-
-## Resumen para el informe
-
-- Se elaboraron 3 **mockups** (wireframes de baja fidelidad en HTML): Reservar, Confirmación y Mis reservas/modificar/cancelar; capturas en `docs/evidencias/mockup_*.png`.
-- Backend en **FastAPI + SQLAlchemy + SQLite** con arquitectura en capas (routers → servicios → modelos); 8 endpoints REST + `/api/health` y documentación OpenAPI en `/docs`.
-- Reglas de negocio: horario 12:00–23:00, duración 2 h, máximo 60 días, :00/:30, capacidad máxima, **no solapamiento** y asignación de la mesa más pequeña disponible.
-- Notificaciones de confirmación, modificación y cancelación **simuladas** (tabla `notifications` + `notifications.log`); log real de la demo en `notifications_demo.log`.
-- Frontend HTML/CSS/JS sin frameworks, responsive, que consume la API con `fetch`; 8 capturas del sistema funcionando (`app_01` a `app_08`).
-- Plan de pruebas con 27 casos (TP-01 a TP-27) trazados a RF/RNF y criterios de aceptación.
-- **Resultado: 29/29 pruebas aprobadas** con pytest (unitarias del servicio + API con TestClient); salida en `pytest_fase3.txt`.
-- Tiempos de respuesta medidos < 10 ms por petición (RNF-02 cumplido; `tiempos_respuesta.txt`).
